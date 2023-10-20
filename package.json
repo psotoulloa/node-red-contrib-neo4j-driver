@@ -12,7 +12,8 @@
   },
   "keywords": [
     "node-red",
-    "node"
+    "node",
+    "neo4j"
   ],
   "author": "Patricio Soto Ulloa",
   "license": "GPL-3.0-or-later",
