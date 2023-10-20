@@ -38,6 +38,7 @@ module.exports = function (RED) {
           } else {
             msg.payload = res;
           }
+          node.status({fill:"green",shape:"dot"});
         } catch (e) {
           closeDriver()
           node.status({fill:"red",shape:"dot",text:e.toString()});
