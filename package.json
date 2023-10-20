@@ -1,6 +1,6 @@
 {
   "name": "@psotoulloa/node-red-contrib-neo4j-driver",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "description": "This node use the neo4j driver",
   "main": "node-red-contrib-neo4j-driver.js",
   "scripts": {
