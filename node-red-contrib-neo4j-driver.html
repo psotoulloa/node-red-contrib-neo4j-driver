@@ -1,0 +1,99 @@
+<style>
+  #node-input-name,
+  #node-input-query {
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    padding: 4px 10px;
+    width: 70%;
+  }
+</style>
+<script type="text/javascript">
+  RED.nodes.registerType("neo4j-driver", {
+    category: "storage",
+    color: "#8CAFD4",
+    defaults: {
+      name: { value: "Neo4j driver" },
+      neo4jType: { value: "write" },
+      neo4jFormat: { value: "write" },
+      query: {},
+    },
+    credentials: {
+      uri: { type: "text" },
+      username: { type: "text" },
+      password: { type: "password" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "icons/neo4j_logo_globe.png",
+    label: function () {
+      return this.name || "Neo4j";
+    },
+    oneditprepare: function () {
+      $("#node-input-neo4jType").val(this.neo4jType || "read");
+      $("#node-input-neo4jFormat").val(this.neo4jFormat || "neo4j");
+      $("#node-input-uri").val(this.credentials.uri);
+      $("#node-input-username").val(this.credentials.username);
+      if (this.credentials.has_password) {
+        $("#password-text").html("Override password");
+      } else {
+        $("#password-text").html("Password");
+      }
+    },
+    oneditsave: function () {
+      this.name = $("#node-input-name").val();
+      this.neo4jType = $("#node-input-neo4jType").val();
+      this.neo4jFormat = $("#node-input-neo4jFormat").val();
+      this.query = $("#node-input-query").val();
+      this.credentials.uri = $("#node-input-uri").val();
+      this.credentials.username = $("#node-input-username").val();
+      if ($("#node-input-password").val()) {
+        this.credentials.password = $("#node-input-password").val();
+      }
+    },
+  });
+</script>
+
+<script type="text/x-red" data-template-name="neo4j-driver">
+  <div class="form-row">
+    <label for="node-input-name">
+      <i class="fa fa-tag"></i> Name :
+    </label>
+    <input id="node-input-name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-neo4jType">
+      <i class="fa fa-tag"></i> Type :
+    </label>
+    <select id="node-input-neo4jType" >
+      <option value="read" >Read</option>
+      <option value="write">Write</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-query" style="vertical-align: top;">
+      <i class="fa fa-code"></i> Cypher query :
+    </label>
+    <textarea rows="5" id="node-input-query" style="vertical-align: top;" placeholder="Write your cypher query here... this will try to use first msg.query"></textarea>
+  </div>
+  <div class="form-row">
+    <label for="node-input-neo4jFormat">
+      <i class="fa fa-tag"></i> Results :
+    </label>
+    <select id="node-input-neo4jFormat" >
+      <option value="neo4j" >Neo4j result format</option>
+      <option value="simple">Simple format</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-uri"><i class="fa fa-globe"></i> Uri</label>
+    <input type="text" id="node-input-uri" placeholder="The default is env.NEO4J_URI">
+  </div>
+  <div class="form-row">
+    <label for="node-input-username"><i class="fa fa-user"></i> Username</label>
+    <input type="text" id="node-input-username" placeholder="The default is env.NEO4J_USER">
+  </div>
+  <div class="form-row">
+    <label for="node-input-password"><i class="fa fa-key"></i> <span id="password-text">Password</span></label>
+    <input type="password" id="node-input-password" placeholder="The default is env.NEO4J_PASSWORD">
+  </div>
+</script>
