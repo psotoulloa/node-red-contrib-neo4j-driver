@@ -29,5 +29,8 @@
   "homepage": "https://github.com/psotoulloa/node-red-contrib-neo4j-driver#readme",
   "dependencies": {
     "neo4j-driver": "^5.13.0"
+  },
+  "engines": {
+    "node": "v18.17.0"
   }
 }
