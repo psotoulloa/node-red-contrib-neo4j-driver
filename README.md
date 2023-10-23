@@ -27,7 +27,7 @@ To install the neo4j-driver node in your Node-RED instance, you can:
    - **Cypher query**: Provide the Cypher query you want to execute. The node will attempt to use `msg.query` first if available.
    - **Results**: Choose the result format. Either the default Neo4j result format or a simplified format.
    - **Uri**: Database URI (default from environment variable `NEO4J_URI`).
-   - **Username**: Database username (default from environment variable `NEO4J_USER`).
+   - **Username**: Database username (default from environment variable `NEO4J_USERNAME`).
    - **Password**: Database password (default from environment variable `NEO4J_PASSWORD`).
 3. Connect the node to other nodes in your flow, provide an input payload, and see the results in the output.
 
