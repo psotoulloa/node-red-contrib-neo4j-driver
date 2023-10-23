@@ -1,0 +1,167 @@
+[
+  {
+      "id": "fa54caaf7696e5f6",
+      "type": "tab",
+      "label": "Flow 1",
+      "disabled": false,
+      "info": "",
+      "env": []
+  },
+  {
+      "id": "dfd71317dfbb9cb4",
+      "type": "inject",
+      "z": "fa54caaf7696e5f6",
+      "name": "Init",
+      "props": [],
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "onceDelay": 0.1,
+      "topic": "",
+      "x": 145,
+      "y": 107,
+      "wires": [
+          [
+              "141349440a4d7a7b"
+          ]
+      ]
+  },
+  {
+      "id": "872d590823a17909",
+      "type": "neo4j-driver",
+      "z": "fa54caaf7696e5f6",
+      "name": "WRITE",
+      "neo4jType": "write",
+      "neo4jFormat": "neo4j",
+      "query": "MATCH (d:Person {name: $director}), (m:Movie {title: $title})\nMERGE (d)-[:DIRECTED]->(m);",
+      "x": 530,
+      "y": 120,
+      "wires": [
+          [
+              "4c0e463ee4500e46"
+          ]
+      ]
+  },
+  {
+      "id": "4c0e463ee4500e46",
+      "type": "debug",
+      "z": "fa54caaf7696e5f6",
+      "name": "debug",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "payload",
+      "targetType": "msg",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 730,
+      "y": 120,
+      "wires": []
+  },
+  {
+      "id": "8f998714433652df",
+      "type": "neo4j-driver",
+      "z": "fa54caaf7696e5f6",
+      "name": "READ",
+      "neo4jType": "read",
+      "neo4jFormat": "simple",
+      "query": "MATCH (a:Person)-[:ACTED_IN]-(m:Movie)-[:DIRECTED]-(d:Person)\nRETURN a.name AS actor_name , m.title AS movie_title, d.name AS director_name \n",
+      "x": 535,
+      "y": 184,
+      "wires": [
+          [
+              "ce2dbc18e1e8753b"
+          ]
+      ]
+  },
+  {
+      "id": "237638c4412fe53e",
+      "type": "inject",
+      "z": "fa54caaf7696e5f6",
+      "name": "Init",
+      "props": [],
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "onceDelay": 0.1,
+      "topic": "",
+      "x": 150,
+      "y": 171,
+      "wires": [
+          [
+              "55900d454d7de92a"
+          ]
+      ]
+  },
+  {
+      "id": "ce2dbc18e1e8753b",
+      "type": "debug",
+      "z": "fa54caaf7696e5f6",
+      "name": "debug 2",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "false",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 745,
+      "y": 184,
+      "wires": []
+  },
+  {
+      "id": "141349440a4d7a7b",
+      "type": "change",
+      "z": "fa54caaf7696e5f6",
+      "name": "",
+      "rules": [
+          {
+              "t": "set",
+              "p": "payload",
+              "pt": "msg",
+              "to": "{\"title\":\"Apollo 13\",\"director\":\"Ron Howard\"}",
+              "tot": "json"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 340,
+      "y": 120,
+      "wires": [
+          [
+              "872d590823a17909"
+          ]
+      ]
+  },
+  {
+      "id": "55900d454d7de92a",
+      "type": "change",
+      "z": "fa54caaf7696e5f6",
+      "name": "",
+      "rules": [
+          {
+              "t": "set",
+              "p": "payload",
+              "pt": "msg",
+              "to": "{}",
+              "tot": "json"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 340,
+      "y": 180,
+      "wires": [
+          [
+              "8f998714433652df"
+          ]
+      ]
+  }
+]
