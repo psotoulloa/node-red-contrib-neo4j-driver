@@ -35,6 +35,16 @@ To install the neo4j-driver node in your Node-RED instance, you can:
 
 The node expects the input payload (`msg.payload`) to contain the parameters for the Cypher query. For example, if your Cypher query is:
 
+MATCH (n:Person {name: $name}) RETURN n
+
+Then, the input payload should be:
+
+```json
+{
+  "name": "John Doe"
+}
+```
+
 
 ## Development Environment
 To develop in this node, you must install node-red globaly 

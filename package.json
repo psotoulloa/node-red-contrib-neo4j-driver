@@ -1,6 +1,6 @@
 {
   "name": "@psotoulloa/node-red-neo4jdriver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This node use the neo4j driver",
   "main": "node-red-contrib-neo4j-driver.js",
   "scripts": {
@@ -31,6 +31,6 @@
     "neo4j-driver": "^5.13.0"
   },
   "engines": {
-    "node": "v18.17.0"
+    "node": ">=v16.20.0"
   }
 }
