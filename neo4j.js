@@ -4,8 +4,9 @@ let driverKey = null;
 
 const createDriver = (uri, username, password) => {
   uri = process.env.NEO4J_URI || uri;
-  username = process.env.NEO4J_USER || username;
+  username = process.env.NEO4J_USERNAME || username;
   password = process.env.NEO4J_PASSWORD || password;
+  console.log(uri, username, password);
   return neo4j.driver(uri, neo4j.auth.basic(username, password));
 };
 
@@ -21,7 +22,7 @@ const getDriver = (uri, username, password) => {
   return driverInstance;
 };
 
-const closeDriver =  () => {
+const closeDriver = () => {
   try {
     driverInstance.close();
   } catch (error) {
