@@ -13,7 +13,7 @@ module.exports = function (RED) {
           defaultAccessMode: neo4j.session.WRITE,
         });
         const query = config.query || msg.query;
-        const params = config.payload || msg.payload;
+        const params = msg.payload ?? {};
         try {
           let res;
           if (config.neo4jType === "write") {
